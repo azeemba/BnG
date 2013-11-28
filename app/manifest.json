@@ -1,6 +1,6 @@
 {
     "name": "__MSG_appName__",
-    "version": "0.0.3",
+    "version": "0.0.13",
     "manifest_version": 2,
     "description": "__MSG_appDescription__",
     "icons": {
@@ -25,13 +25,14 @@
     "content_scripts": [
         {
             "matches": [
-                "http://*/*",
-                "https://*/*"
+                "http://*.wikipedia.org/*",
+                "https://*.wikipedia.org/*"
             ],
             "css": [
                 "styles/main.css"
             ],
             "js": [
+                "bower_components/jquery/jquery.min.js",
                 "scripts/contentscript.js"
             ],
             "run_at": "document_end",
@@ -39,8 +40,7 @@
         }
     ],
     "permissions": [
-        "tabs",
-        "http://*/*",
-        "https://*/*"
+        "http://*.wikipedia.org/*",
+        "https://*.wikipedia.org/*"
     ]
 }
