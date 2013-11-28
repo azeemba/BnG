@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "wikiTraverse",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Help Traverse the Web",
+    "description": "The description of the application"
+  }
+}
