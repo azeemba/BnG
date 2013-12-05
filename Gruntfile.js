@@ -263,7 +263,7 @@ module.exports = function (grunt) {
         compress: {
             dist: {
                 options: {
-                    archive: 'package/wikiTraverse.zip'
+                    archive: 'package/BnG.zip'
                 },
                 files: [{
                     expand: true,
