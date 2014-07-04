@@ -4,11 +4,8 @@ chrome.runtime.onInstalled.addListener(function (details) {
     console.log('previousVersion', details.previousVersion);
 });
 
-chrome.runtime.onMessage.addListener(
-	function(request, sender, sendResponse)
-	{
-		console.log("Request from" + sender.tab.url);
-		console.log("For link" + request.href);
-		sendResponse("worked!");
-	}
-);
+chrome.tabs.onUpdated.addListener(function (tabId) {
+    chrome.pageAction.show(tabId);
+});
+
+console.log('\'Allo \'Allo! Event Page for Page Action');
