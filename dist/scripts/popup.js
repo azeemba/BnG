@@ -1,0 +1,1 @@
+define(["../config"],function(){require(["jquery"],function(a){console.log(a.fn.jquery),console.log("'Allo 'Allo! Popup")})});

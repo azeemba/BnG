@@ -4,8 +4,6 @@ chrome.runtime.onInstalled.addListener(function (details) {
     console.log('previousVersion', details.previousVersion);
 });
 
-chrome.tabs.onUpdated.addListener(function (tabId) {
-    chrome.pageAction.show(tabId);
-});
+chrome.browserAction.setBadgeText({text: '\'Allo'});
 
-console.log('\'Allo \'Allo! Event Page for Page Action');
+console.log('\'Allo \'Allo! Event Page for Browser Action');

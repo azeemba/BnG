@@ -127,6 +127,16 @@ module.exports = function (grunt) {
             }
         },
 
+        requirejs: {
+            compile: {
+                options: {
+                    mainConfigFile: "<%= config.app %>/config.js",
+                    baseUrl: "<%= config.app %>/scripts",
+                    dir: '<%= config.dist %>/scripts',
+                }
+            }
+        },
+
         // Automatically inject Bower components into the HTML file
         bowerInstall: {
             app: {
@@ -242,6 +252,8 @@ module.exports = function (grunt) {
                         'styles/{,*/}*.css',
                         'styles/fonts/{,*/}*.*',
                         '_locales/{,*/}*.json',
+                        'config.js',
+                        'bower_components/jquery/dist/jquery.js'
                     ]
                 }]
             }
@@ -309,12 +321,13 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'chromeManifest:dist',
+        'copy',
+        'requirejs',
         'useminPrepare',
         'concurrent:dist',
         'cssmin',
         'concat',
         'uglify',
-        'copy',
         'usemin',
         'compress'
     ]);
