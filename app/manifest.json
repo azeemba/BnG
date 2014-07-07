@@ -26,13 +26,13 @@
     "content_scripts": [
         {
             "matches": [
-                "http://*/*",
-                "https://*/*"
+                "*://*.wikipedia.org/*"
             ],
             "css": [
                 "styles/main.css"
             ],
             "js": [
+                "bower_components/jquery/dist/jquery.js",
                 "scripts/contentscript.js"
             ],
             "run_at": "document_end",
@@ -40,8 +40,9 @@
         }
     ],
     "permissions": [
-        "tabs",
-        "http://*/*",
-        "https://*/*"
+        "*://*.wikipedia.org/*"
+    ],
+    "optional_permissions": [
+        "*://*/"
     ]
 }
