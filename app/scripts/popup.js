@@ -1,4 +1,4 @@
-define(['../config'], function(config){
+define(['../config'], function(){
 	'use strict';
 	require(['jquery'], function($) {
 		console.log($.fn.jquery);
