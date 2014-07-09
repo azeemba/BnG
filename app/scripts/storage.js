@@ -34,21 +34,30 @@ var storage = {
             }
             var obj = {};
             obj[prop] = value;
-            chrome.storage.sync.set(obj, resolve);
+            chrome.storage.local.set(obj, resolve);
+        }).then(function(){
+            console.log("just set ", prop, value);
         });
     },
     getAll: function() {
         return new Promise(function(resolve){
-            chrome.storage.sync.get(null, resolve);
+            chrome.storage.local.get(null, resolve);
         });
     },
     getValue: function(key) {
-        return new Promise(function(resolve, reject){
+        return new Promise(function(resolve){
             if (key) {
-                chrome.storage.sync.get(key, resolve);
+                chrome.storage.local.get(key, function(obj){
+                    if (!obj || !obj[key]){
+                        resolve();
+                    }
+                    else {
+                        resolve(obj[key]);
+                    }
+                });
             }
             else {
-                reject(new Error("Invalid key"));
+                resolve();
             }
         });
     },
@@ -59,7 +68,7 @@ var storage = {
                 reject(new Error("Keys must be an array"));
                 return;
             }
-            chrome.storage.sync.get(keys, resolve);
+            chrome.storage.local.get(keys, resolve);
         });
     },
 
@@ -75,11 +84,12 @@ var storage = {
             }
             else {
                 var graph = new sigma.classes.graph();
-                graph.graphId(key);
                 //kinda ugly but I can't come up with a way to chain this out
-                return storage.getValue(graph.graphId()).then(function(obj){
+                return storage.getValue(key).then(function(obj){
+                    console.log("loading data from ", obj);
                     graph.read(obj);
                     this.d_graphs[key] = graph;
+                    graph.graphId(key); //by setting up the id later, we avoid writes to storage
                     return graph;
                 }.bind(this));
             }
@@ -92,10 +102,14 @@ var storage = {
 (function(){
     //load the data from storage on construction
     var updateStorage = function(){
-        storage.setValue(this.graphId(), {
-            nodes: this.nodes(),
-            edges: this.edges()
-        });
+        console.log(this.graphId());
+        var key = this.graphId();
+        if (key) {
+            storage.setValue(key, {
+                nodes: this.nodes(),
+                edges: this.edges()
+            });            
+        }
     };
     //update storage on any of the following actions
     sigma.classes.graph.attach("addNode", "addNodeToStorage", updateStorage);
