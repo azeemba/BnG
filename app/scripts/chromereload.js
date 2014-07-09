@@ -20,3 +20,12 @@ connection.onmessage = function (e) {
         }
     }
 };
+
+//Other debug methods
+
+var printStorage = function(){
+	chrome.storage.sync.get(function(data){console.log(data);})
+};
+var clearStorage = function(){
+	chrome.storage.sync.clear();
+};

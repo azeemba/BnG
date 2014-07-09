@@ -10,7 +10,12 @@
     "default_locale": "en",
     "background": {
         "scripts": [
+            "bower_components/lodash/dist/lodash.js",
+            "bower_components/bluebird/js/browser/bluebird.js",
+            "bower_components/sigma/build/sigma.min.js",
+            "bower_components/uri.js/src/URI.js",
             "scripts/chromereload.js",
+            "scripts/storage.js",
             "scripts/background.js"
         ]
     },
@@ -40,7 +45,8 @@
         }
     ],
     "permissions": [
-        "*://*.wikipedia.org/*"
+        "*://*.wikipedia.org/*",
+        "storage"
     ],
     "optional_permissions": [
         "*://*/"

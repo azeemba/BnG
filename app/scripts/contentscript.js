@@ -10,16 +10,21 @@ var a = myJQuery('<a class="graphEdgeAction">+++</a>');
 document.addEventListener('click', function(e){
 	var link = myJQuery(e.target);
 	if (link.hasClass('graphEdgeAction')) {
-		console.log(link.prev().attr("href"));
-
+		var action = 'addEdge';
+		
 		if (link.text() === '+++') {
 			link.text('---');
 		}
 		else {
+			action = 'removeEdge';
 			link.text('+++');
 		}
+
+		chrome.runtime.sendMessage({
+			action: action,
+			url: link.prev().attr("href")
+		});
 	}
 });
-
 
 myJQuery('a').after(a);
