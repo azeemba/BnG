@@ -1,3 +1,9 @@
 .graphEdgeAction {
 	color: green;
 }
+
+#graph {
+	position: absolute;
+	width: 500px;
+	height: 500px;
+}

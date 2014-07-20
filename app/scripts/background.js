@@ -82,3 +82,21 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
 		sendResponse({error: "Unknown action"});
 	}
 });
+
+
+chrome.runtime.onConnect.addListener(function(port){
+	console.log("Port connected");
+	port.onMessage.addListener(function(message){
+		console.log("port message got");
+		graphPromise.then(function(graph){
+			console.log("graphpromise resolved");
+			port.postMessage({
+				action: message.action,
+				graph: {
+					edges: graph.edges(),
+					nodes: graph.nodes()
+				}
+			});
+		});
+	});
+});
